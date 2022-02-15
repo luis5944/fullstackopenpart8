@@ -149,14 +149,17 @@ const resolvers = {
 
   Mutation: {
     addBook: (root, args) => {
-      if (books.find((book) => book.title === args.title)) {
+      const existBook = books.find((book) => book.title === args.title);
+      if (existBook) {
         throw new UserInputError("Book must be unique", {
           invalidArgs: args.name,
         });
       }
       const newBook = { ...args, id: uuid() };
 
-      if (!authors.some((a) => a.author === newBook.author)) {
+      const existAuthor = authors.find((a) => a.name === newBook.author);
+      if (!existAuthor) {
+        console.log("entro");
         const newAuthor = {
           id: uuid(),
           name: newBook.author,
