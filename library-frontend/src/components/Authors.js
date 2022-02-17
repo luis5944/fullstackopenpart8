@@ -34,7 +34,7 @@ const Authors = (props) => {
         </tbody>
       </table>
 
-      <BirthyearForm authors={result.data.allAuthors} />
+      {props.token ? <BirthyearForm authors={result.data.allAuthors} /> : null}
     </div>
   );
 };

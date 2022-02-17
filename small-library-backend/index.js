@@ -86,19 +86,21 @@ const resolvers = {
           return await Book.find({
             author: authorF._id,
             genres: { $in: [args.genre] },
-          });
+          }).populate("author");
         }
         if (args.author) {
           const authorF = await Author.findOne({ name: args.author });
-          return await Book.find({ author: authorF._id });
+          return await Book.find({ author: authorF._id }).populate('author');
         }
       }
 
       if (args.genre && !args.author) {
-        return await Book.find({ genres: { $in: [args.genre] } });
+        return await Book.find({ genres: { $in: [args.genre] } }).populate(
+          "author"
+        );
       }
       if (!args.genre && !args.author) {
-        return await Book.find({});
+        return await Book.find({}).populate("author");
       }
       return [];
     },
