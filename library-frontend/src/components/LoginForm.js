@@ -23,7 +23,9 @@ const LoginForm = (props) => {
 
           localStorage.setItem("library-user-token", token);
           props.setPage("authors");
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       }}
     >
       <div>
